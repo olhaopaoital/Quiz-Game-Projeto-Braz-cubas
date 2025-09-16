@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Quiz Battle</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  #container {
+    position: relative;
+    display: inline-block;
+    width: 400px;
+    height: 250px;
+    perspective: 800px;
+  }
+
+  #door {
+    width: 140px;
+    position: absolute;
+    left: 180px;
+    top: 40px;
+    transform-origin: left center;
+    transition: transform 0.6s ease;
+    z-index: 1;
+  }
+.open {
+    transform: rotateY(-70deg);
+  }
+
+  #scientist {
+    width: 80px;
+    position: absolute;
+    top: 70px;
+    left: -100px;
+    transition: left 0.6s ease;
+    z-index: 2;
+  }
+
+  button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  /* Mensagem acima do botão */
+  #message {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>Quiz Battle</h1>
+
+<div id="container">
+  <img id="door" src="image/porta.png" alt="porta">
+  <img id="scientist" src="image/Design_sem_nome-removebg-preview.png" alt="cientista">
+</div>
+
+<!-- Mensagem aparece aqui, em cima do botão -->
+<div id="message"></div>
+
+<button id="answerBtn">Responder Pergunta</button>
+
+<script>
+  const scientist = document.getElementById('scientist');
+  const door = document.getElementById('door');
+  const button = document.getElementById('answerBtn');
+  const message = document.getElementById('message');
+
+  let position = -100;
+button.addEventListener('click', () => {
+    position += 60;
+    scientist.style.left = position + 'px';
+
+    if (position >= 40 && position < 80) {
+      door.classList.add("open");
+    }
+
+    if (position >= 100) {
+      setTimeout(() => {
+        position = -100;
+        scientist.style.left = position + 'px';
+        door.classList.remove("open");
+
+        // Mostrar mensagem acima do botão
+        message.textContent = "🎉 Parabéns!";
+        message.style.display = "block";
+
+        // Esconder após 2s (opcional)
+        setTimeout(() => {
+          message.style.display = "none";
+        }, 2000);
+      }, 1200);
+    }
+  });
+</script>
+
+</body>
+</html>
